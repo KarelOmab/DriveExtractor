@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FloppyExtractor
+namespace DriveExtractor
 {
     public class Node
     {

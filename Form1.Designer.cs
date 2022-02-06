@@ -1,5 +1,5 @@
 ﻿
-namespace FloppyExtractor
+namespace DriveExtractor
 {
     partial class Form1
     {
