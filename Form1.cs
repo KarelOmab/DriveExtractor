@@ -60,10 +60,6 @@ namespace DriveExtractor
 
                 foreach (string folder in folders)
                 {
-
-                    Console.WriteLine(folder);
-                    
-                    
                     Node n = new Node(folder);
                     n.PathDst = Path.Combine(tbDestination.Text, subDir, n.Name);
 
@@ -73,8 +69,6 @@ namespace DriveExtractor
                         listView1.Items.Add(lvi);
                         listNodes.Add(n);
                     }
-
-                    
                 }
 
             }
@@ -90,7 +84,6 @@ namespace DriveExtractor
 
                 foreach (string file in files)
                 {
-                    Console.WriteLine(file);
                     Node n = new Node(file);
                     n.PathDst = Path.Combine(tbDestination.Text, subDir, n.Name);
 
@@ -229,6 +222,7 @@ namespace DriveExtractor
                 Properties.Settings.Default["lastDestinationRootDir"] = tbDestination.Text;
                 Properties.Settings.Default.Save(); // Saves settings in application configuration file
             }
+            LoadFoldersAndFiles();
         }
 
         private void tbSubDirPrefix_TextChanged(object sender, EventArgs e)
@@ -242,13 +236,22 @@ namespace DriveExtractor
         {
             string subDir = "";
 
-            //get subdir if applicable
-            if (tbSubDirPrefix.Text.Length > 0)
+            try
             {
-                //get last subdir and increment by one
-                string[] folders = Directory.GetDirectories(tbDestination.Text, tbSubDirPrefix.Text + "*", System.IO.SearchOption.TopDirectoryOnly);
-                subDir = String.Format("{0}_{1:D3}", tbSubDirPrefix.Text, folders.Length + 1);
+                //get subdir if applicable
+                if (tbSubDirPrefix.Text.Length > 0)
+                {
+                    //get last subdir and increment by one
+                    string[] folders = Directory.GetDirectories(tbDestination.Text, tbSubDirPrefix.Text + "*", System.IO.SearchOption.TopDirectoryOnly);
+                    subDir = String.Format("{0}_{1:D3}", tbSubDirPrefix.Text, folders.Length + 1);
+                }
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                subDir = String.Format("{0}_001", tbSubDirPrefix.Text);
             }
+
+            
 
             return subDir;
         }
@@ -257,7 +260,7 @@ namespace DriveExtractor
         {
             string subDir = GetSubDirectory();
 
-            if (subDir.Length > 0)
+            if (subDir.Length >= 0)
             {
                 foreach (Node n in listNodes)
                 {
@@ -366,6 +369,22 @@ namespace DriveExtractor
         {
             foreach (ListViewItem lvi in listView1.Items)
                 lvi.Checked = true;
+        }
+
+        private void copyPathToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ListViewItem lvi = listView1.SelectedItems[0];
+
+            if (lvi != null)
+            {
+                Node n = lvi.Tag as Node;
+                Clipboard.SetText(n.PathDst);
+            }
+        }
+
+        private void tbDestination_TextChanged(object sender, EventArgs e)
+        {
+            UpdateSubDirectory();
         }
     }
 }

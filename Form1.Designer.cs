@@ -37,6 +37,7 @@ namespace DriveExtractor
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.openSourcePathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openDestinationPathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyPathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnBrowse = new System.Windows.Forms.Button();
             this.tbSubDirPrefix = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -93,14 +94,16 @@ namespace DriveExtractor
             this.tbDestination.Name = "tbDestination";
             this.tbDestination.Size = new System.Drawing.Size(443, 20);
             this.tbDestination.TabIndex = 4;
+            this.tbDestination.TextChanged += new System.EventHandler(this.tbDestination_TextChanged);
             // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openSourcePathToolStripMenuItem,
-            this.openDestinationPathToolStripMenuItem});
+            this.openDestinationPathToolStripMenuItem,
+            this.copyPathToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(194, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(194, 70);
             // 
             // openSourcePathToolStripMenuItem
             // 
@@ -115,6 +118,13 @@ namespace DriveExtractor
             this.openDestinationPathToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.openDestinationPathToolStripMenuItem.Text = "Open Destination Path";
             this.openDestinationPathToolStripMenuItem.Click += new System.EventHandler(this.openDestinationPathToolStripMenuItem_Click);
+            // 
+            // copyPathToolStripMenuItem
+            // 
+            this.copyPathToolStripMenuItem.Name = "copyPathToolStripMenuItem";
+            this.copyPathToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.copyPathToolStripMenuItem.Text = "Copy Destination Path";
+            this.copyPathToolStripMenuItem.Click += new System.EventHandler(this.copyPathToolStripMenuItem_Click);
             // 
             // btnBrowse
             // 
@@ -327,6 +337,7 @@ namespace DriveExtractor
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.ToolStripMenuItem copyPathToolStripMenuItem;
     }
 }
 
